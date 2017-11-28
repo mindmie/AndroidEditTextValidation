@@ -59,8 +59,11 @@ public class Option2Activity extends AppCompatActivity implements TextWatcher, V
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_validate2) {
-            if(validateEditText()) {
+            if(validateEditText()&& validatePassword()&&validateEmail()&&validatePhone()) {
                 Toast.makeText(this, "Okay. You are good to go.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -74,6 +77,49 @@ public class Option2Activity extends AppCompatActivity implements TextWatcher, V
         }
         // TODO: add your EditText validation here
 
+        return isValidated;
+    }
+    // To validate password
+    private boolean validatePassword (){
+        boolean isValidated = true;
+        if (etPwd.getText().toString().length() < 6 || etPwd.getText().toString().length() > 10 ){
+            etPwd.setError("Character should be 6 - 10");
+            isValidated = false;
+        }
+        else if (etPwd.getText().toString().matches("[!@#$%^&*?]+")){
+            etPwd.setError("Character should be a-z ,A-Z , 0-9");
+            isValidated = false;
+        }
+        return isValidated;
+    }
+    // to validate email
+    private boolean validateEmail(){
+
+        boolean isValidate = true;
+        if (etEmail.getText().toString().length() == 0 ){
+            etEmail.setError("Please Enter");
+            isValidate = false;
+        }
+        else if (!etEmail.getText().toString().matches("[a-zA-Z0-9._]+@[a-z]+\\.+[a-z]+")){
+            etEmail.setError("Example@email.com");
+            isValidate = false;
+        }
+
+        return isValidate;
+
+
+    }
+    // to validate email
+    private  boolean validatePhone(){
+        boolean isValidated = true;
+        if (etPhone.getText().toString().length() != 10){
+            etPhone.setError("Please Enter phone number");
+            isValidated = false;
+        }
+        else if (!etPhone.getText().toString().matches("[0-9]+")){
+            etPhone.setError("it's not phone number");
+            isValidated = false;
+        }
         return isValidated;
     }
 }

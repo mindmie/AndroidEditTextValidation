@@ -37,7 +37,7 @@ public class Option1Activity extends AppCompatActivity {
         findViewById(R.id.btn_validate1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEditText()&& validatePassword()) {
+                if(validateEditText()&& validatePassword()&&validateEmail()&&validatePhone()) {
                     Toast.makeText(Option1Activity.this, "Okay. You are good to go.", Toast.LENGTH_SHORT).show();
                     // SnackBar?
                 }
@@ -97,6 +97,7 @@ public class Option1Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                validatePhone();
 
             }
         });
@@ -113,7 +114,7 @@ public class Option1Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                validateEmail();
             }
         });
     }
@@ -147,5 +148,35 @@ public class Option1Activity extends AppCompatActivity {
         return isValidated;
 
 
+    }
+    // to validate email
+    private boolean validateEmail(){
+
+        boolean isValidate = true;
+        if (etEmail.getText().toString().length() == 0 ){
+            etEmail.setError("Please Enter");
+            isValidate = false;
+        }
+        else if (!etEmail.getText().toString().matches("[a-zA-Z0-9._]+@[a-z]+\\.+[a-z]+")){
+            etEmail.setError("Example@email.com");
+            isValidate = false;
+        }
+
+        return isValidate;
+
+
+    }
+    // to validate email
+    private  boolean validatePhone(){
+        boolean isValidated = true;
+        if (etPhone.getText().toString().length() != 10){
+            etPhone.setError("Please Enter phone number");
+            isValidated = false;
+        }
+        else if (!etPhone.getText().toString().matches("[0-9]+")){
+            etPhone.setError("it's not phone number");
+            isValidated = false;
+        }
+        return isValidated;
     }
 }

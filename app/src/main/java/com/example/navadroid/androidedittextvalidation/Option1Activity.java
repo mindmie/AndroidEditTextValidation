@@ -166,7 +166,7 @@ public class Option1Activity extends AppCompatActivity {
 
 
     }
-    // to validate email
+    // to validate phone
     private  boolean validatePhone(){
         boolean isValidated = true;
         if (etPhone.getText().toString().length() != 10){
